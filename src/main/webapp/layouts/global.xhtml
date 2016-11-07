@@ -11,11 +11,15 @@
         <!--<h:outputStylesheet name="/faces/resources/css/default.css"/>
         <h:outputStylesheet name="faces/resources/css/cssLayout.css"/>-->
         <title>AEControl</title>
+        
+        <link href="../Recursos/estilo.css" rel="stylesheet" type="text/css" />    
+        
     </h:head>
 
     <h:body>
-
-        <div id="top">
+   <div class="cabezera">
+        </div>
+        <div id="top"  class="top">
             <ui:insert name="top">
                 <h:form>  
                     <p:growl id="messages"/> 
@@ -30,11 +34,11 @@
                             <p:menuitem value="Registro Equipo" url="/faces/equipo/equipo.xhtml" />    
                             <p:menuitem value="Registro Tipo Equipo" url="/faces/equipo/tipoEquipo.xhtml" />                       
                         </p:submenu>
-                        
-                        <p:submenu label="Vehiculo" >
-                            <p:menuitem value="Registro Vehiculo" url="/faces/vehiculo/vehiculo.xhtml" />                                                   
-                        </p:submenu>
 
+                        <p:submenu label="Reportes" icon="ui-icon-pencil">
+                            <p:menuitem value="Equipos Alquilados" url="/faces/reportes/equiposAlquiladosPorObra.xhtml" />    
+                            <p:menuitem value="Equipos Disponibles" url="/faces/reportes/equiposDisponibles.xhtml" />                       
+                        </p:submenu>
 
 
                         <p:menuitem value="Quit" url="http://www.edmodo.com" icon="ui-icon-close" />
@@ -46,12 +50,11 @@
             </ui:insert>
         </div>
 
-        <div id="content" class="center_content">
+        <div id="content" class="center_content" >
             <ui:insert name="content">Content</ui:insert>
         </div>
 
-        <div id="bottom" align="center">
-            <ui:insert name="bottom">&copy; Nanosolution 2016 </ui:insert>
+       <div class="pies">
         </div>
 
     </h:body>
