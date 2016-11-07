@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+
+    <body>
+
+     
+        <ui:composition template="./../layouts/global.xhtml">           
+
+            <ui:define name="content">
+                <h1>Vehiculo</h1>
+                <h:form id="form"> 
+                    <p:messages autoUpdate="true"/>
+
+                    <h:panelGrid id="grid" columns="3" cellpadding="5">
+
+                        
+                        <p:outputLabel for="idTipo" value="Tipo de Vehículo:"/>
+                        <p:inputText id="idTipo" label="Tipo" required="true" value="#{vehiculoBean.vehiculo.tipo}"/>
+                        <p:message for="idTipo"/>
+                        
+                         <p:outputLabel for="idPlaca" value="Placa:"/>
+                         <p:inputText id="idPlaca" label="Placa" required="true" value="#{vehiculoBean.vehiculo.placa}"/>
+                        <p:message for="idPlaca"/>
+                        
+                        <p:commandButton id="btnEnviar" value="Guardar" actionListener="#{vehiculoBean.registrar}" validateClient="true" update="grid :formTable:dtVehiculo" />
+                    </h:panelGrid>
+                </h:form>  
+
+                <h:form id="formTable">
+                    <p:dataTable id="dtVehiculo" editable="true" var="vehiculo" widgetVar="vehiculoTabla" value="#{vehiculoBean.LVehiculo}"  
+                                 emptyMessage="No hay vehiculo con este criterio" 
+                                 filteredValue="#{vehiculoBean.filteredVehiculo}"
+                                 rows="5"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+
+                        <p:ajax event="rowEdit" listener="#{vehiculoBean.onRowEdit}"  update=":form:grid" />
+                        <p:ajax event="rowEditCancel" listener="#{vehiculoBean.onRowCancel}" update=":form:grid" />
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Buscar en todos los filtros:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('vehiculoTabla').filter()" style="width:150px" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column  filterStyle="display:none;" filterBy="#{vehiculo.tipo}" headerText="Tipo de vehículo">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{vehiculo.tipo}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{vehiculo.tipo}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column  filterStyle="display:none;" filterBy="#{vehiculo.placa}" headerText="Placa">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{vehiculo.placa}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{vehiculo.placa}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                       
+                       
+                        <p:column style="width:50px">                            
+                            <p:commandLink  actionListener="#{vehiculoBean.eliminar(vehiculo)}" update=":formTable:dtVehiculo" styleClass="ui-icon ui-icon-trash" >
+                                <p:confirm header="Confirmar" message="¿Esta seguro que desea eliminar este vehículo?" icon="ui-icon-alert" />
+                            </p:commandLink>
+                        </p:column> 
+
+                    </p:dataTable>
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">                                   
+                        <p:commandButton value="Si"  type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+
+                </h:form>
+
+
+
+
+
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>
