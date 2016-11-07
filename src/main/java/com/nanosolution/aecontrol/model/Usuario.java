@@ -1,16 +1,12 @@
 package com.nanosolution.aecontrol.model;
-// Generated 5/11/2016 05:13:32 PM by Hibernate Tools 4.3.1
+// Generated 6/11/2016 08:20:03 PM by Hibernate Tools 4.3.1
 
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -29,25 +25,26 @@ public class Usuario  implements java.io.Serializable {
      private String identificacion;
      private String clave;
      private char estado;
-     private Set<Rol> rols = new HashSet<Rol>(0);
+     private int idRol;
 
     public Usuario() {
     }
 
 	
-    public Usuario(String nombre, String identificacion, String clave, char estado) {
+    public Usuario(String nombre, String identificacion, String clave, char estado, int idRol) {
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.clave = clave;
         this.estado = estado;
+        this.idRol = idRol;
     }
-    public Usuario(String nombre, String apellidos, String identificacion, String clave, char estado, Set<Rol> rols) {
+    public Usuario(String nombre, String apellidos, String identificacion, String clave, char estado, int idRol) {
        this.nombre = nombre;
        this.apellidos = apellidos;
        this.identificacion = identificacion;
        this.clave = clave;
        this.estado = estado;
-       this.rols = rols;
+       this.idRol = idRol;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -112,13 +109,14 @@ public class Usuario  implements java.io.Serializable {
         this.estado = estado;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="usuario")
-    public Set<Rol> getRols() {
-        return this.rols;
+    
+    @Column(name="id_rol", nullable=false)
+    public int getIdRol() {
+        return this.idRol;
     }
     
-    public void setRols(Set<Rol> rols) {
-        this.rols = rols;
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
     }
 
 

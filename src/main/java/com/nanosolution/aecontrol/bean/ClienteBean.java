@@ -5,8 +5,6 @@
  */
 package com.nanosolution.aecontrol.bean;
 
-
-
 import com.nanosolution.aecontrol.dao.ClienteDaoImpl;
 import com.nanosolution.aecontrol.model.Cliente;
 import java.util.ArrayList;
@@ -18,7 +16,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
-
 
 import org.primefaces.event.RowEditEvent;
 
@@ -109,12 +106,12 @@ public class ClienteBean {
      *
      */
     public void eliminar(Cliente c) {
-        ClienteDaoImpl clientedao = new ClienteDaoImpl();        
+        ClienteDaoImpl clientedao = new ClienteDaoImpl();
         clientedao.delete(c);
         init();
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente eliminado","");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente eliminado", "");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        
+
     }
 
     /**

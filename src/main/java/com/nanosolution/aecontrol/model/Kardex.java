@@ -1,5 +1,5 @@
 package com.nanosolution.aecontrol.model;
-// Generated 5/11/2016 05:13:32 PM by Hibernate Tools 4.3.1
+// Generated 6/11/2016 08:20:03 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;

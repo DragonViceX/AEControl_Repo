@@ -9,14 +9,14 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <mapping class="com.nanosolution.aecontrol.model.Rol"/>
     <mapping class="com.nanosolution.aecontrol.model.Usuario"/>
-    <mapping class="com.nanosolution.aecontrol.model.DetalleEquipo"/>
     <mapping class="com.nanosolution.aecontrol.model.Vehiculo"/>
-    <mapping class="com.nanosolution.aecontrol.model.Kardex"/>
     <mapping class="com.nanosolution.aecontrol.model.Obra"/>
     <mapping class="com.nanosolution.aecontrol.model.Cliente"/>
-    <mapping class="com.nanosolution.aecontrol.model.Equipo"/>
     <mapping class="com.nanosolution.aecontrol.model.Tipoequipo"/>
+    <mapping class="com.nanosolution.aecontrol.model.DetalleEquipo"/>
+    <mapping class="com.nanosolution.aecontrol.model.Kardex"/>
+    <mapping class="com.nanosolution.aecontrol.model.Equipo"/>
+    <mapping class="com.nanosolution.aecontrol.model.Rol"/>
   </session-factory>
 </hibernate-configuration>
