@@ -11,52 +11,53 @@
         <ui:composition template="./../layouts/global.xhtml">           
 
             <ui:define name="content">
-                <h1>Equipo</h1>
+                <h1>Usuario</h1>
                 <h:form id="form"> 
                     <p:messages autoUpdate="true"/>
 
                     <h:panelGrid id="grid" columns="3" cellpadding="5">
 
                         <p:outputLabel for="idNombre" value="Nombre:"/>
-                        <p:inputText id="idNombre" label="Nombre" required="true" value="#{equipoBean.equipo.nombre}"/>
+                        <p:inputText id="idNombre" label="Nombre" required="true" value="#{usuarioBean.usuario.nombre}"/>
                         <p:message for="idNombre"/>
 
-                        <p:outputLabel for="idCodigo" value="Codigo:"/>
-                        <p:inputText id="idCodigo" label="Codigo"  value="#{equipoBean.equipo.codigo}"/>
-                        <p:message for="idCodigo"/>
+                        <p:outputLabel for="idApellido" value="Apellidos:"/>
+                        <p:inputText id="idApellido" label="Apellidos:"  value="#{usuarioBean.usuario.apellidos}"/>
+                        <p:message for="idApellido"/>
 
-                        <p:outputLabel for="idCantidad" value="Cantidad:"/>
-                        <p:inputText id="idCantidad" label="Cantidad" required="true" value="#{equipoBean.equipo.cantidad}"/>
-                        <p:message for="idCantidad"/>
+                        <p:outputLabel for="idIdentificacion" value="Identificación:"/>
+                        <p:inputText id="idIdentificacion" label="Identificación:" required="true" value="#{usuarioBean.usuario.identificacion}"/>
+                        <p:message for="idIdentificacion"/>
 
-                        <p:outputLabel for="idPrecio" value="Precio alquiler:"/>
-                        <p:inputText id="idPrecio" label="Precio" required="true" value="#{equipoBean.equipo.precioAlquiler}"/>
-                        <p:message for="idPrecio"/>
-
-                        <p:outputLabel for="idTipo" value="Tipo de Equipo:"/>
-                        <p:selectOneMenu id="idTipo" value="#{equipoBean.idtipo_equipo}" required="true" >
-                            <f:selectItem itemLabel="Selecccione un Tipo de Equipo" itemValue="" />
-                            <f:selectItems value="#{equipoBean.tipoequipo}" />
-                            <f:converter converterId="javax.faces.Integer"/>
+                        <p:outputLabel for="idRol" value="Rol:"/>
+                        <p:selectOneMenu id="idRol" value="#{usuarioBean.usuario.idRol}" style="width:230px">
+                            <f:selectItem itemLabel="Seleccione un rol" itemValue="" />
+                            <f:selectItem itemLabel="Administrador" itemValue="1" />
+                            <f:selectItem itemLabel="Almacenista" itemValue="2" />
                         </p:selectOneMenu>
-                        <p:message for="idTipo"/>     
 
-                        <p:commandButton id="btnEnviar" value="Guardar" actionListener="#{equipoBean.registrar}" validateClient="true" update="grid :formTable:dtEquipo" />
+                        <p:message for="idRol"/>
+
+                        <h:outputLabel for="pwd1" value="Password:" />
+                        <p:password id="pwd1" value="#{usuarioBean.usuario.clave}" label="Password:" />
+                        <p:message for="pwd1"/>
+
+                        <p:commandButton id="btnEnviar" value="Guardar" actionListener="#{usuarioBean.registrar}" validateClient="true" update="grid :formTable:dtEquipo" />
                     </h:panelGrid>
                 </h:form>  
 
                 <h:form id="formTable">
-                    <p:dataTable id="dtEquipo" editable="true" var="equipo" widgetVar="equipoTabla" value="#{equipoBean.LEquipo}"  
-                                 emptyMessage="No hay equipos con este criterio" 
-                                 filteredValue="#{equipoBean.filteredEquipos}"
+                    <p:dataTable id="dtEquipo" editable="true" var="usuarioVar" widgetVar="equipoTabla" value="#{usuarioBean.LUsuario}"  
+                                 emptyMessage="No hay Usuarios Encontrados" 
+                                 filteredValue="#{usuarioBean.filteredUsuarios}"
                                  rows="10"
                                  paginator="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15">
 
 
-                        <p:ajax event="rowEdit" listener="#{equipoBean.onRowEdit}"  update=":form:grid" />
-                        <p:ajax event="rowEditCancel" listener="#{equipoBean.onRowCancel}" update=":form:grid" />
+                        <p:ajax event="rowEdit" listener="#{usuarioBean.onRowEdit}"  update=":form:grid" />
+                        <p:ajax event="rowEditCancel" listener="#{usuarioBean.onRowCancel}" update=":form:grid" />
 
                         <f:facet name="header">
                             <p:outputPanel >
@@ -65,65 +66,39 @@
                             </p:outputPanel>
                         </f:facet>
 
+                        <p:column  filterStyle="display:none;" filterBy="#{usuarioVar.idUsuario}" headerText="Codigo">
+                            
+                            <h:outputText value="#{usuarioVar.idUsuario}" />
+                            
+                          
+                        </p:column>
 
-
-                        <p:column  filterStyle="display:none;" filterBy="#{equipo.nombre}" headerText="Nombre">
+                        <p:column  filterStyle="display:none;" filterBy="#{usuarioVar.nombre}" headerText="Nombre">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{equipo.nombre}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{equipo.nombre}" style="width:100%"/></f:facet>
+                                <f:facet name="output"><h:outputText value="#{usuarioVar.nombre}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{usuarioVar.nombre}" style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column filterBy="#{equipo.codigo}"  filterStyle="display:none;" headerText="Codigo">
+                        <p:column filterBy="#{usuarioVar.apellidos}"  filterStyle="display:none;" headerText="Apellidos">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{equipo.codigo}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{equipo.codigo}" style="width:100%"/></f:facet>
+                                <f:facet name="output"><h:outputText value="#{usuarioVar.apellidos}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{usuarioVar.apellidos}" style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column filterBy="#{equipo.cantidad}"  filterStyle="display:none;" headerText="Cantidad">
+                        <p:column filterBy="#{usuarioVar.identificacion}"  filterStyle="display:none;" headerText="Identificacion">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{equipo.cantidad}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{equipo.cantidad}" style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
-                        
-                        <p:column filterBy="#{equipo.cantidadStock}"  filterStyle="display:none;" headerText="Stock">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{equipo.cantidadStock}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{equipo.cantidadStock}" style="width:100%"/></f:facet>
+                                <f:facet name="output"><h:outputText value="#{usuarioVar.identificacion}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{usuarioVar.identificacion}" style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column filterBy="#{equipo.precioAlquiler}"  filterStyle="display:none;" headerText="Precio alquiler">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{equipo.precioAlquiler}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{equipo.precioAlquiler}" style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                        <p:column style="width:10px">  
 
-                        <p:column filterBy="#{equipoBean.seleccion(equipo.tipoequipo.id)}" filterStyle="display:none;" headerText="Tipo Equipo">      
-                             
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{equipoBean.seleccion(equipo.tipoequipo.id)}" /></f:facet>
-                                <f:facet name="input">
-                                    <p:selectOneMenu id="idTipo" value="#{equipoBean.idtipo_equipo}" required="true" >
-                                        <f:selectItems value="#{equipoBean.tipoequipo}" var="idtipo_equipo" itemLabel="#{idtipo_equipo.description}" />
-                                        <f:converter converterId="javax.faces.Integer"/>
-                                    </p:selectOneMenu>
-                                </f:facet>
-                            </p:cellEditor>                           
-                        </p:column>
-
-
-
-                        <p:column style="width:10px">
                             <p:rowEditor />
-                        </p:column>
-
-                        <p:column style="width:10px">                            
-                            <p:commandLink  actionListener="#{equipoBean.eliminar(equipo)}" update=":formTable:dtEquipo" styleClass="ui-icon ui-icon-trash" >
-                                <p:confirm header="Confirmar" message="¿Esta seguro que desea eliminar este equipo?" icon="ui-icon-alert" />
+                            <p:commandLink  actionListener="#{usuarioBean.eliminar(usuarioVar)}" update=":formTable:dtEquipo" styleClass="ui-icon ui-icon-trash" >
+                                <p:confirm header="Confirmar" message="¿Esta seguro que desea eliminar este usuario?" icon="ui-icon-alert" />
                             </p:commandLink>
                         </p:column> 
 
