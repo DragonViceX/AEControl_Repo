@@ -93,6 +93,10 @@ public class ObraBean {
      *
      */
     public void registrar() {
+        if (validar(obra.getNombre())) { 
+            FacesMessage msg = new FacesMessage("El vehiculo ya existe");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }else{
         ObraDaoImpl obradao = new ObraDaoImpl();
         ClienteDaoImpl clientedao = new ClienteDaoImpl();
         obra.setCliente(clientedao.getClienteId(id_cliente));
@@ -102,6 +106,7 @@ public class ObraBean {
         FacesMessage msg = new FacesMessage("Obra creada");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+}
 
     /**
      * Actualiza una obra en la base de datos.
@@ -201,6 +206,25 @@ public class ObraBean {
     public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
     }
+    
+      /**
+     * Valida que no se repita el nombre de una Obra, ya que debe ser unico.
+     *
+     * @param n String nombre de la obra.
+     * @return boolean devuelve una bandera.
+     *
+     */
+    public boolean validar(String n) {
+        boolean b = false;
+        for (Iterator iterador = LObra.listIterator(); iterador.hasNext();) {
+            Obra v = (Obra) iterador.next();
+            if (v.getNombre().toLowerCase().equals(n.toLowerCase())) {
+                b = true;
+            }
+        }
+        return b;
+    }
+
     
     
     
