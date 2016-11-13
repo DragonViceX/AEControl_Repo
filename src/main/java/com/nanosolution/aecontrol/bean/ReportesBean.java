@@ -5,6 +5,8 @@
  */
 package com.nanosolution.aecontrol.bean;
 
+import com.nanosolution.aecontrol.dao.KardexDaoImpl;
+import com.nanosolution.aecontrol.model.Kardex;
 import com.nanosolution.aecontrol.util.GenerarReportes;
 import com.nanosolution.aecontrol.util.Parametros;
 import com.nanosolution.aecontrol.util.ParametrosWeb;
@@ -15,7 +17,9 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import net.sf.jasperreports.engine.query.JRHibernateQueryExecuterFactory;
 import com.nanosolution.aecontrol.util.HibernateUtil;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.faces.model.SelectItem;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -30,13 +34,21 @@ public class ReportesBean {
     private Date fechaDesde;
     private Date fechaHasta;
     private String obra;
+    private ArrayList<SelectItem> listObras;
 
     public ReportesBean() {
+        listObras = new ArrayList<SelectItem>();
+        KardexDaoImpl obraDao = new KardexDaoImpl();
+
+        for (Kardex lista : obraDao.getKardexObraAlquilados()) {
+            listObras.add(new SelectItem(lista.getObra().getIdObra(), lista.getObra().getNombre()));
+        }
 
     }
 
     @SuppressWarnings("unchecked")
     public void generarReporteEquipoAlquiladoPorObra() throws Exception {
+
         System.err.println("paso por aca");
         ParametrosWeb param = (ParametrosWeb) UtilidadesWeb.getManagedBean("Parametros");
         @SuppressWarnings("rawtypes")
@@ -49,7 +61,6 @@ public class ReportesBean {
         GenerarReportes.generarReporteEquipoAlquiladoPorObra(FacesContext.getCurrentInstance(), "1", Parametros.FORMATO_PDF,
                 parametros, param.getCONTEXTO_APP(), Parametros.RUTA_JASPER, Parametros.RUTA_PDF,
                 Parametros.RUTA_IMG);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -88,6 +99,14 @@ public class ReportesBean {
 
     public void setObra(String obra) {
         this.obra = obra;
+    }
+
+    public ArrayList<SelectItem> getListObras() {
+        return listObras;
+    }
+
+    public void setListObras(ArrayList<SelectItem> listObras) {
+        this.listObras = listObras;
     }
 
 }

@@ -27,12 +27,16 @@
                         <p:calendar id="fechaHasta" label="Fecha Hasta" required="true" value="#{reportesBean.fechaHasta}"/>
 
 
-                        <p:outputLabel for="Obra" value="Obra"/>
-                        <p:inputText id="Obra" label="Obra" required="true" value="#{reportesBean.obra}"/>
+                        <p:outputLabel for="ObrasAlqui" value="Obra"/>
+                        <p:selectOneMenu id="ObrasAlqui" value="#{reportesBean.obra}"  effect="fade" style="width: 225px;">
+                            <f:selectItem itemLabel="---" itemValue="" />  
+                            <f:selectItems value="#{reportesBean.listObras}"/> 
+                        </p:selectOneMenu>
+
 
                         <p:message for="fechaDesde"/>
                         <p:message for="fechaHasta"/>
-                        <p:message for="Obra"/>
+
 
 
                         <p:commandButton id="btnEnviar" value="Generar Reporte" action="#{reportesBean.generarReporteEquipoAlquiladoPorObra}" 
