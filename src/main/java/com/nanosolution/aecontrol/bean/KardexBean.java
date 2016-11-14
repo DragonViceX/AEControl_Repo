@@ -7,6 +7,7 @@ package com.nanosolution.aecontrol.bean;
 
 import com.nanosolution.aecontrol.dao.DetalleEquipoDaoImpl;
 import com.nanosolution.aecontrol.dao.KardexDaoImpl;
+import com.nanosolution.aecontrol.dao.ObraDaoImpl;
 import com.nanosolution.aecontrol.model.Cliente;
 import com.nanosolution.aecontrol.model.DetalleEquipo;
 import com.nanosolution.aecontrol.model.Equipo;
@@ -36,7 +37,7 @@ public class KardexBean {
     private Vehiculo selectVehiculo;
     private DetalleEquipo detalleEqui;
     private List<DetalleEquipo> listDetalle;
-    private List<Obra> listObra; 
+    private List<Obra> listObra;
 
     @PostConstruct
     public void init() {
@@ -44,9 +45,11 @@ public class KardexBean {
         selectEquipo = new Equipo();
         selectObra = new Obra();
         selectVehiculo = new Vehiculo();
-        detalleEqui =new DetalleEquipo();
-        
+        detalleEqui = new DetalleEquipo();
+
         DetalleEquipoDaoImpl detalleDao = new DetalleEquipoDaoImpl();
+        ObraDaoImpl obraDao = new ObraDaoImpl();
+        listObra = obraDao.getObrasActivas();
         listDetalle = detalleDao.getDetalleNoAlquilados();
     }
 
@@ -187,7 +190,5 @@ public class KardexBean {
     public void setListObra(List<Obra> listObra) {
         this.listObra = listObra;
     }
-    
-    
 
 }
