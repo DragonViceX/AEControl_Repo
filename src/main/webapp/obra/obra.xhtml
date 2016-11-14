@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+
+    <body>
+
+        <ui:composition template="./../layouts/global.xhtml">           
+
+            <ui:define name="content">
+                <h1>Obra</h1>
+                <h:form id="form"> 
+                    <p:messages autoUpdate="true"/>
+
+                    <h:panelGrid id="grid" columns="3" cellpadding="5">
+
+                       <p:outputLabel for="idCliente" value="Cliente:"/>
+                        <p:selectOneMenu id="idCliente" value="#{obraBean.id_cliente}" required="true" >
+                            <f:selectItem itemLabel="Selecccione un Cliente" itemValue="" />
+                            <f:selectItems value="#{obraBean.cliente}" />
+                            <f:converter converterId="javax.faces.Integer"/>
+                        </p:selectOneMenu>
+                        <p:message for="idCliente"/>   
+
+                        <p:outputLabel for="idNombre" value="Nombre:"/>
+                        <p:inputText id="idNombre" label="Nombre" required="true" value="#{obraBean.obra.nombre}"/>
+                        <p:message for="idNombre"/>
+
+                        <p:outputLabel for="idAlmacenista" value="Almacenista/Encargado:"/>
+                        <p:inputText id="idAlmacenista" label="Almacenista" required="true" value="#{obraBean.obra.almacenista}"/>
+                        <p:message for="idAlmacenista"/>
+
+                        <p:outputLabel for="idZona" value="Zona:"/>
+                        <p:inputText id="idZona" label="Zona" required="true" value="#{obraBean.obra.zona}"/>
+                        <p:message for="idZona"/>
+
+                        <p:outputLabel for="idDireccion" value="Direccion:"/>
+                        <p:inputText id="idDireccion" label="Direccion" value="#{obraBean.obra.direccion}"/>
+                        <p:message for="idDireccion"/>
+
+                        <p:outputLabel for="idTelefono" value="Teléfono:"/>
+                        <p:inputText id="idTelefono" validatorMessage="Debe ser numérico" required="true" label="Telefono"  value="#{obraBean.obra.telefono}">
+                            <f:validateRegex pattern="[0-9]+" />
+                        </p:inputText>
+                        <p:message for="idTelefono"/>                        
+
+                        <p:outputLabel for="idCorreo" value="Correo:"/>
+                        <p:inputText id="idCorreo" validatorMessage="Correo inválido" label="Correo" value="#{obraBean.obra.corrreo}">
+                        </p:inputText>
+                        <p:message for="idCorreo"/>
+
+                        <p:commandButton id="btnEnviar" value="Guardar" actionListener="#{obraBean.registrar}" validateClient="true" update="grid :formTable:dtObra" />
+                    </h:panelGrid>
+                </h:form>  
+
+                <h:form id="formTable">
+                    <p:dataTable id="dtObra" editable="true" var="obra" widgetVar="obraTabla" value="#{obraBean.LObra}"  
+                                 emptyMessage="No hay obras con este criterio" 
+                                 filteredValue="#{obraBean.filteredObras}"
+                                 rows="10"
+                                 rowKey="#{obra.idObra}"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+
+                        <p:ajax event="rowEdit" listener="#{obraBean.onRowEdit}"  update=":form:grid" />
+                        <p:ajax event="rowEditCancel" listener="#{obraBean.onRowCancel}" update=":form:grid" />
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText value="Buscar en todos los filtros:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('obraTabla').filter()" style="width:150px" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column  headerText="Cliente"  >                
+                             <h:outputText value="#{obraBean.seleccion(obra.cliente.idCliente)}"/>                                                       
+                        </p:column>
+
+                        <p:column  filterStyle="display:none;" filterBy="#{obra.nombre}" headerText="Obra">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{obra.nombre}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{obra.nombre}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column filterBy="#{obra.almacenista}"  filterStyle="display:none;" headerText="Almacenista">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{obra.almacenista}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{obra.almacenista}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column filterBy="#{obra.zona}"  filterStyle="display:none;" headerText="Zona">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{obra.zona}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{obra.zona}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column filterBy="#{obra.direccion}"  filterStyle="display:none;" headerText="Dirección">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{obra.direccion}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{obra.direccion}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column filterBy="#{obra.telefono}"  filterStyle="display:none;" headerText="Teléfono">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{obra.telefono}" /></f:facet>
+                                <f:facet name="input">
+                                    <p:inputText  validatorMessage="Teléfono debe ser numérico" value="#{obra.telefono}" style="width:100%">
+                                        <f:validateRegex pattern="[0-9]+" />
+                                    </p:inputText>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column filterBy="#{obra.corrreo}"  filterStyle="display:none;" headerText="Correo">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{obra.corrreo}" /></f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="correo"  value="#{obra.corrreo}" validatorMessage="Correo inválido" style="width:100%">
+                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </p:inputText>
+                                </f:facet>                               
+                            </p:cellEditor>
+                        </p:column>
+
+
+                        <p:column style="width:10px">
+                            <p:rowEditor />
+                        </p:column>
+
+                        <p:column style="width:10px">                            
+                            <p:commandLink  actionListener="#{obraBean.eliminar(obra)}" update=":formTable:dtObra" styleClass="ui-icon ui-icon-trash" >
+                                <p:confirm header="Confirmar" message="Esta seguro que desea eliminar esta obra" icon="ui-icon-alert" />
+                            </p:commandLink>
+                        </p:column> 
+
+                    </p:dataTable>
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">                                   
+                        <p:commandButton value="Si"  type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+
+                </h:form>
+
+
+
+
+
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>
