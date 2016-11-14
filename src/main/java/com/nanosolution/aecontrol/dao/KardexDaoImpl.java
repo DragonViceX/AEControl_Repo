@@ -17,7 +17,7 @@ import org.hibernate.Query;
 
 /**
  *
- * @author Jessica
+ * @author Diego Luis Hernandez
  */
 public class KardexDaoImpl extends GenericDaoImpl<Kardex, Integer> implements KardexDao {
 

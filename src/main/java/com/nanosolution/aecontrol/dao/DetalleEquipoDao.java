@@ -6,12 +6,13 @@
 
 package com.nanosolution.aecontrol.dao;
 
-import com.nanosolution.aecontrol.model.Kardex;
+import com.nanosolution.aecontrol.model.DetalleEquipo;
+
 
 /**
  *
  * @author Diego Luis Hernandez
  */
-public interface KardexDao extends GenericDao <Kardex,Integer>{
+public interface DetalleEquipoDao extends GenericDao <DetalleEquipo,Integer>{
     
 }

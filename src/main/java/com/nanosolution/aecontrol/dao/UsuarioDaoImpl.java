@@ -17,7 +17,7 @@ import org.hibernate.HibernateException;
 
 /**
  *
- * @author Jessica
+ * @author Diego Luis Hernandez Angulo
  */
 public class UsuarioDaoImpl extends GenericDaoImpl<Usuario,Integer> implements UsuarioDao {
     

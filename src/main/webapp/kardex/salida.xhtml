@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+
+    <body>
+
+        <ui:composition template="./../layouts/global.xhtml">           
+
+            <ui:define name="content">
+                <h1>Salidas de Equipos</h1>
+
+                <h:form id="formTable">
+
+
+                    <p:dataTable id="dtEquipo" editable="true" var="detalleVar" widgetVar="equipoTabla" value="#{kardexBean.listDetalle}"  
+                                 emptyMessage="No hay salidas encontradas" 
+                                 rows="10"
+                                 paginator="true"
+                                 selection="#{kardexBean.detalleEqui}" selectionMode="single" rowKey="#{detalleVar.idDetalleEquipo}" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText value="Buscar en todos los filtros:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('equipoTabla').filter()" style="width:150px" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column  filterStyle="display:none;" filterBy="#{detalleVar.idDetalleEquipo}" headerText="Codigo">
+                            <h:outputText value="#{detalleVar.idDetalleEquipo}" />
+                        </p:column>
+
+                        <p:column  filterStyle="display:none;" filterBy="#{detalleVar.equipo.nombre}" headerText="Nombre Equipo">
+                            <h:outputText value="#{detalleVar.equipo.nombre}" />
+                        </p:column>
+
+                        <p:column filterBy="#{detalleVar.numSerie}"  filterStyle="display:none;" headerText="Numero Serie">
+                            <h:outputText value="#{detalleVar.numSerie}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+
+
+                    <p:dataTable id="dtObra" editable="true" var="obraVar" widgetVar="equipoTabla2" value="#{kardexBean.listObra}"  
+                                 emptyMessage="No hay obras encontradas" 
+                                 rows="10"
+                                 paginator="true"
+                                 selection="#{kardexBean.selectObra}" selectionMode="single" rowKey="#{obraVar.idObra}" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText value="Buscar en todos los filtros:" />
+                                <p:inputText id="globalFilter2" onkeyup="PF('equipoTabla2').filter()" style="width:150px" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column  filterStyle="display:none;" filterBy="#{obraVar.idObra}" headerText="Codigo">
+                            <h:outputText value="#{obraVar.idObra}" />
+                        </p:column>
+
+                        <p:column  filterStyle="display:none;" filterBy="#{obraVar.nombre}" headerText="Nombre Obra">
+                            <h:outputText value="#{obraVar.nombre}" />
+                        </p:column>
+
+                        <p:column filterBy="#{obraVar.cliente.empresa}"  filterStyle="display:none;" headerText="Empresa Cliente">
+                            <h:outputText value="#{obraVar.cliente.empresa}" />
+                        </p:column>
+
+                        <p:column filterBy="#{obraVar.telefono}"  filterStyle="display:none;" headerText="Telefono">
+                            <h:outputText value="#{obraVar.telefono}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                    <p:commandButton id="btnEnviar" value="Mostrar" actionListener="#{kardexBean.mostrar}"  />
+
+                </h:form>
+
+
+
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

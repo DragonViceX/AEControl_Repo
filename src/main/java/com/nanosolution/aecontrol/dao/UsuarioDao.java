@@ -13,7 +13,7 @@ import com.nanosolution.aecontrol.model.Usuario;
 
 /**
  *
- * @author Jessica
+ * @author Diego Luis Hernandez Angulo
  */
 public interface UsuarioDao extends GenericDao <Usuario,Integer>{
     
