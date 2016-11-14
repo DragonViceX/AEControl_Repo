@@ -7,14 +7,11 @@ package com.nanosolution.aecontrol.bean;
 
 import com.nanosolution.aecontrol.dao.UsuarioDaoImpl;
 import com.nanosolution.aecontrol.model.Usuario;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;

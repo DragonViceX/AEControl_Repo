@@ -6,6 +6,7 @@
 package com.nanosolution.aecontrol.bean;
 
 import com.nanosolution.aecontrol.dao.DetalleEquipoDaoImpl;
+import com.nanosolution.aecontrol.dao.EquipoDaoImpl;
 import com.nanosolution.aecontrol.dao.KardexDaoImpl;
 import com.nanosolution.aecontrol.dao.ObraDaoImpl;
 import com.nanosolution.aecontrol.dao.VehiculoDaoImpl;
@@ -43,6 +44,7 @@ public class KardexBean {
     private List<DetalleEquipo> listDetalle;
     private List<Obra> listObra;
     private List<Vehiculo> listVehiculo;
+    KardexDaoImpl kardexdao;
 
     @PostConstruct
     public void init() {
@@ -51,6 +53,7 @@ public class KardexBean {
         selectObra = new Obra();
         selectVehiculo = new Vehiculo();
         detalleEqui = new DetalleEquipo();
+        kardexdao = new KardexDaoImpl();
 
         DetalleEquipoDaoImpl detalleDao = new DetalleEquipoDaoImpl();
         ObraDaoImpl obraDao = new ObraDaoImpl();
@@ -66,22 +69,38 @@ public class KardexBean {
      * Permite registrar un cliente en la base de datos
      */
     public void registrar() {
-        KardexDaoImpl kardexdao = new KardexDaoImpl();
-        selectEquipo=detalleEqui.getEquipo();
-        nuevo.setEquipo(selectEquipo);
-        nuevo.setObra(selectObra);
-        nuevo.setVehiculo(selectVehiculo);
-        nuevo.setTipoMov('S');
 
-        nuevo.setFecha(new Date());
-        nuevo.setHora(new Date());
-        
-        kardexdao.create(nuevo);
-        nuevo = new Kardex();
-        init();
+        EquipoDaoImpl equipodao = new EquipoDaoImpl();
+        selectEquipo = detalleEqui.getEquipo();
+        System.out.println("Cntidad -->> " + selectEquipo.getCantidadStock());
+        if (selectEquipo.getCantidadStock() == 0) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "No hay equipos para alquilar", "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else {
 
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Salida creada", "");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+            selectEquipo.setCantidadStock(selectEquipo.getCantidadStock() - 1);
+            selectEquipo.setCantidad(selectEquipo.getCantidad() + 1);
+
+            equipodao.update(selectEquipo);
+            
+            kardexdao=new KardexDaoImpl();
+            
+            
+            nuevo.setEquipo(selectEquipo);
+            nuevo.setObra(selectObra);
+            nuevo.setVehiculo(selectVehiculo);
+            nuevo.setTipoMov('S');
+
+            nuevo.setFecha(new Date());
+            nuevo.setHora(new Date());
+          
+            kardexdao.create(nuevo);
+            nuevo = new Kardex();
+            init();
+
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Salida creada", "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
     }
 
     /**

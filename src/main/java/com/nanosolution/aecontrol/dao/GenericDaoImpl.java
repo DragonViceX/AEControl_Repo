@@ -79,6 +79,8 @@ public class GenericDaoImpl<T, E extends Serializable> implements GenericDao<T, 
         try {
             startOperation();
             session.merge(entity);
+            session.flush();
+            session.clear();
             tx.commit();
         } catch (HibernateException e) {
             tx.rollback();
@@ -156,7 +158,7 @@ public class GenericDaoImpl<T, E extends Serializable> implements GenericDao<T, 
 
     protected void startOperation() throws HibernateException {
         
-        session = HibernateUtil.getSession();        
+        session = HibernateUtil.getSession();  
         tx = session.beginTransaction();
         
     }
