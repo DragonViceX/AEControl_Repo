@@ -44,7 +44,8 @@
                         </p:column>
 
                     </p:dataTable>
-                  
+
+
                     <br></br>
 
                     <p:dataTable id="dtObra" editable="true" var="obraVar" widgetVar="equipoTabla2" value="#{kardexBean.listObra}"  
@@ -81,12 +82,45 @@
                     </p:dataTable>
 
 
-                    <p:commandButton id="btnEnviar" value="Mostrar" actionListener="#{kardexBean.mostrar}"  />
+                    <br></br>
+
+                    <p:dataTable id="dtVehiculo" editable="true" var="vehiculoVar" widgetVar="equipoTabla3" value="#{kardexBean.listVehiculo}"  
+                                 emptyMessage="No hay vehiculo encontradas" 
+                                 rows="10"
+                                 paginator="true"
+                                 selection="#{kardexBean.selectVehiculo}" selectionMode="single" rowKey="#{vehiculoVar.id}" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText value="Buscar en todos los filtros:" />
+                                <p:inputText id="globalFilter2" onkeyup="PF('equipoTabla3').filter()" style="width:150px" placeholder=""/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column  filterStyle="display:none;" filterBy="#{vehiculoVar.id}" headerText="Codigo">
+                            <h:outputText value="#{vehiculoVar.id}" />
+                        </p:column>
+
+                        <p:column  filterStyle="display:none;" filterBy="#{vehiculoVar.tipo}" headerText="Tipo Vehiculo">
+                            <h:outputText value="#{vehiculoVar.tipo}" />
+                        </p:column>
+
+                        <p:column filterBy="#{vehiculoVar.placa}"  filterStyle="display:none;" headerText="Placa">
+                            <h:outputText value="#{vehiculoVar.placa}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                    <p:outputLabel for="idObservacion" value="Observacion:" style="top:950px;left:200px;position: absolute;" />
+                    <p:inputTextarea id="idObservacion" value="#{kardexBean.nuevo.observacion}" style="top:950px;left:310px;width: 320px;position: absolute;"   />
+
+                    <p:growl id="growl1" showDetail="true" life="5555"/> 
+                    <p:commandButton id="btnEnviar" value="Registrar" actionListener="#{kardexBean.registrar}" style="top:950px;left:680px;position: absolute;" update="formTable,growl1" />
 
                 </h:form>
-
-
-
 
             </ui:define>
 

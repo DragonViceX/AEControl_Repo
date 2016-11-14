@@ -8,17 +8,21 @@ package com.nanosolution.aecontrol.bean;
 import com.nanosolution.aecontrol.dao.DetalleEquipoDaoImpl;
 import com.nanosolution.aecontrol.dao.KardexDaoImpl;
 import com.nanosolution.aecontrol.dao.ObraDaoImpl;
+import com.nanosolution.aecontrol.dao.VehiculoDaoImpl;
 import com.nanosolution.aecontrol.model.Cliente;
 import com.nanosolution.aecontrol.model.DetalleEquipo;
 import com.nanosolution.aecontrol.model.Equipo;
 import com.nanosolution.aecontrol.model.Kardex;
 import com.nanosolution.aecontrol.model.Obra;
 import com.nanosolution.aecontrol.model.Vehiculo;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
@@ -38,6 +42,7 @@ public class KardexBean {
     private DetalleEquipo detalleEqui;
     private List<DetalleEquipo> listDetalle;
     private List<Obra> listObra;
+    private List<Vehiculo> listVehiculo;
 
     @PostConstruct
     public void init() {
@@ -49,13 +54,12 @@ public class KardexBean {
 
         DetalleEquipoDaoImpl detalleDao = new DetalleEquipoDaoImpl();
         ObraDaoImpl obraDao = new ObraDaoImpl();
+        VehiculoDaoImpl vehiculoDao = new VehiculoDaoImpl();
+
         listObra = obraDao.getObrasActivas();
         listDetalle = detalleDao.getDetalleNoAlquilados();
-    }
+        listVehiculo = vehiculoDao.findAll();
 
-    public void mostrar() {
-        System.out.println("-->> " + detalleEqui.getEquipo().getNombre() + " -->>> " + detalleEqui.getEquipo().getIdEquipo());
-        System.out.println("-->> " + selectObra.getNombre() + " -->>> " + selectObra.getCliente().getEmpresa());
     }
 
     /**
@@ -63,13 +67,19 @@ public class KardexBean {
      */
     public void registrar() {
         KardexDaoImpl kardexdao = new KardexDaoImpl();
+        selectEquipo=detalleEqui.getEquipo();
         nuevo.setEquipo(selectEquipo);
         nuevo.setObra(selectObra);
         nuevo.setVehiculo(selectVehiculo);
+        nuevo.setTipoMov('S');
 
+        nuevo.setFecha(new Date());
+        nuevo.setHora(new Date());
+        
         kardexdao.create(nuevo);
         nuevo = new Kardex();
         init();
+
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Salida creada", "");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -189,6 +199,14 @@ public class KardexBean {
 
     public void setListObra(List<Obra> listObra) {
         this.listObra = listObra;
+    }
+
+    public List<Vehiculo> getListVehiculo() {
+        return listVehiculo;
+    }
+
+    public void setListVehiculo(List<Vehiculo> listVehiculo) {
+        this.listVehiculo = listVehiculo;
     }
 
 }
