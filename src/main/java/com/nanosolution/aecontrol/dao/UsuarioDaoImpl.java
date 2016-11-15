@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,24 +8,32 @@
 package com.nanosolution.aecontrol.dao;
 
 
-import com.nanosolution.aecontrol.model.Cliente;
+
 import com.nanosolution.aecontrol.model.Usuario;
 import com.nanosolution.aecontrol.util.HibernateUtil;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 
 /**
  *
- * @author Diego Luis Hernandez Angulo
+ * @author Jessica
  */
+
+@Repository
 public class UsuarioDaoImpl extends GenericDaoImpl<Usuario,Integer> implements UsuarioDao {
+    @Autowired
+	private SessionFactory sessionFactory;
     
-     public Cliente getClienteId(int id){
+     @Override
+     public Usuario getUsuarioId(int id){
        
-        List <Cliente> list;
-        Cliente c;
+        List <Usuario> list;
+        Usuario c;
        
         try{
             session= HibernateUtil.getSession();
@@ -39,6 +48,32 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario,Integer> implements U
         c=list.get(0);        
         return c;
     }
+     
+     
+    @SuppressWarnings("unchecked")
+     public Usuario getUsuIdentificacion(String id){
+       
+        List <Usuario> list;
+        Usuario c;
+       
+        try{
+        
+            list=( sessionFactory.getCurrentSession().createQuery("from usuario where identificacion="+id+"")).list();
+            
+        }catch(HibernateException e){
+            
+             throw e;
+        }       
+        if (list.size() > 0) {
+			return list.get(0);
+		} else {
+			return null;
+		}
+    }
+     
+     
+     
+    
     
    
     

@@ -4,9 +4,12 @@ package com.nanosolution.aecontrol.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,12 +23,14 @@ public class Rol  implements java.io.Serializable {
 
 
      private Integer idRol;
+     private Usuario usuario;
      private String descripcion;
 
     public Rol() {
     }
 
-    public Rol(String descripcion) {
+    public Rol(Usuario usuario, String descripcion) {
+       this.usuario = usuario;
        this.descripcion = descripcion;
     }
    
@@ -39,6 +44,16 @@ public class Rol  implements java.io.Serializable {
     
     public void setIdRol(Integer idRol) {
         this.idRol = idRol;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_usuario", nullable=false)
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     
@@ -55,5 +70,4 @@ public class Rol  implements java.io.Serializable {
 
 
 }
-
 

@@ -29,15 +29,6 @@
                         <p:inputText id="idIdentificacion" label="Identificación:" required="true" value="#{usuarioBean.usuario.identificacion}"/>
                         <p:message for="idIdentificacion"/>
 
-                        <p:outputLabel for="idRol" value="Rol:"/>
-                        <p:selectOneMenu id="idRol" value="#{usuarioBean.usuario.idRol}" style="width:230px">
-                            <f:selectItem itemLabel="Seleccione un rol" itemValue="" />
-                            <f:selectItem itemLabel="Administrador" itemValue="1" />
-                            <f:selectItem itemLabel="Almacenista" itemValue="2" />
-                        </p:selectOneMenu>
-
-                        <p:message for="idRol"/>
-
                         <p:outputLabel for="pwd1" value="Password:" />
                         <p:password id="pwd1" value="#{usuarioBean.usuario.clave}" label="Password:" />
                         <p:message for="pwd1"/>

@@ -6,15 +6,13 @@
 
 package com.nanosolution.aecontrol.dao;
 
-import com.nanosolution.aecontrol.model.Cliente;
 import com.nanosolution.aecontrol.model.Equipo;
-import com.nanosolution.aecontrol.model.Usuario;
 
 
 
 /**
  *
- * @author Diego Luis Hernandez Angulo
+ * @author Jessica
  */
 public interface EquipoDao extends GenericDao <Equipo,Integer>{
     

@@ -7,22 +7,57 @@
 package com.nanosolution.aecontrol.dao;
 
 
-import com.nanosolution.aecontrol.model.Cliente;
 import com.nanosolution.aecontrol.model.Equipo;
-import com.nanosolution.aecontrol.model.Usuario;
 import com.nanosolution.aecontrol.util.HibernateUtil;
 import java.util.List;
-
 import org.hibernate.HibernateException;
+
+
 
 
 /**
  *
- * @author Diego Luis Hernandez Angulo
+ * @author Jessica
  */
 public class EquipoDaoImpl extends GenericDaoImpl<Equipo,Integer> implements EquipoDao {
     
-
+    public List<Equipo> getEquipoStock(){
+       List <Equipo> list;      
+       
+        try{
+            session= HibernateUtil.getSession();
+            tx=session.beginTransaction();
+            list=(session.createQuery("from Equipo where cantidad_stock>0")).list();
+            tx.commit();
+        }catch(HibernateException e){
+            
+            tx.rollback();
+            throw e;
+        }
+                
+        return list;
+    }
+    
+       public Equipo getEquipoId(int id){
+       
+        List <Equipo> list;
+        Equipo c;
+       
+        try{
+            session= HibernateUtil.getSession();
+            tx=session.beginTransaction();
+            list=(session.createQuery("from Equipo where id_equipo="+id+"")).list();
+            tx.commit();
+        }catch(HibernateException e){
+            
+            tx.rollback();
+            throw e;
+        }
+        c=list.get(0);        
+        return c;
+    }
+    
+     
     
    
     

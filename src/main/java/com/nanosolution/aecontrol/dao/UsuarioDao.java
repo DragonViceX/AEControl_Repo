@@ -6,15 +6,19 @@
 
 package com.nanosolution.aecontrol.dao;
 
-import com.nanosolution.aecontrol.model.Cliente;
+
 import com.nanosolution.aecontrol.model.Usuario;
 
 
 
 /**
  *
- * @author Diego Luis Hernandez Angulo
+ * @author Jessica
  */
 public interface UsuarioDao extends GenericDao <Usuario,Integer>{
     
+     
+     public Usuario getUsuarioId(int id);
+     public Usuario getUsuIdentificacion(String id);
+     
 }

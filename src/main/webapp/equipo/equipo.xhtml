@@ -21,10 +21,6 @@
                         <p:inputText id="idNombre" label="Nombre" required="true" value="#{equipoBean.equipo.nombre}"/>
                         <p:message for="idNombre"/>
 
-                        <p:outputLabel for="idCodigo" value="Codigo:"/>
-                        <p:inputText id="idCodigo" label="Codigo"  value="#{equipoBean.equipo.codigo}"/>
-                        <p:message for="idCodigo"/>
-
                         <p:outputLabel for="idCantidad" value="Cantidad:"/>
                         <p:inputText id="idCantidad" label="Cantidad" required="true" value="#{equipoBean.equipo.cantidad}"/>
                         <p:message for="idCantidad"/>
@@ -74,13 +70,7 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column filterBy="#{equipo.codigo}"  filterStyle="display:none;" headerText="Codigo">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{equipo.codigo}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{equipo.codigo}" style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
-
+                        
                         <p:column filterBy="#{equipo.cantidad}"  filterStyle="display:none;" headerText="Cantidad">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{equipo.cantidad}" /></f:facet>
