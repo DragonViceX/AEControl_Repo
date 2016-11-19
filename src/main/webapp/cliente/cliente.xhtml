@@ -160,11 +160,7 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column style="width:10px">
-
-                        </p:column>
-
-                        <p:column style="width:10px">
+                        <p:column style="width:10px" headerText="Acciones">
                             <p:rowEditor />
                             <p:commandLink  actionListener="#{clienteBean.eliminar(cliente)}" update=":formTable:dtCliente" styleClass="ui-icon ui-icon-trash" >
                                 <p:confirm header="Confirmar" message="Esta seguro que desea eliminar este cliente #{cliente.apellidos}" icon="ui-icon-alert" />

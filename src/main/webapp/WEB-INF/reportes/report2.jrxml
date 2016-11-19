@@ -8,7 +8,7 @@
 from detalle_equipo deta,equipo equi,tipoequipo tipo where
 deta.id_equipo=equi.id_equipo and
 tipo.id=equi.id_tipoequipo and
-deta.estado_alquiler='D']]>
+deta.estado_alquiler='D' and cantidad_stock>0]]>
 	</queryString>
 	<field name="codigo" class="java.lang.Integer"/>
 	<field name="TipoEquipo" class="java.lang.String"/>
@@ -24,7 +24,7 @@ deta.estado_alquiler='D']]>
 	<title>
 		<band height="79" splitType="Stretch">
 			<image>
-				<reportElement uuid="aee3234b-2674-4eca-a4ff-d1d364ae6ee1" x="0" y="0" width="555" height="79"/>
+				<reportElement x="0" y="0" width="555" height="79" uuid="aee3234b-2674-4eca-a4ff-d1d364ae6ee1"/>
 				<imageExpression><![CDATA["C:\\img\\cabezera.png"]]></imageExpression>
 			</image>
 		</band>
@@ -32,7 +32,7 @@ deta.estado_alquiler='D']]>
 	<pageHeader>
 		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="5ee04758-2b39-47b8-8e1f-2ab931cfef11" x="11" y="11" width="532" height="29"/>
+				<reportElement x="11" y="11" width="532" height="29" uuid="5ee04758-2b39-47b8-8e1f-2ab931cfef11"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="20" isBold="true"/>
 				</textElement>
@@ -43,50 +43,50 @@ deta.estado_alquiler='D']]>
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="7cbaad4e-06e8-455c-ab44-b589f92578b4" x="11" y="0" width="100" height="20"/>
+				<reportElement x="11" y="0" width="100" height="20" uuid="7cbaad4e-06e8-455c-ab44-b589f92578b4"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="81729c09-9843-4b00-bafc-94295541c7e4" x="111" y="0" width="111" height="20"/>
+				<reportElement x="111" y="0" width="111" height="20" uuid="81729c09-9843-4b00-bafc-94295541c7e4"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="c039d713-c7da-4377-8dd4-f5c5b2579e85" x="222" y="0" width="111" height="20"/>
+				<reportElement x="222" y="0" width="111" height="20" uuid="c039d713-c7da-4377-8dd4-f5c5b2579e85"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="45697493-3d45-40ea-b3e9-e2d9b0359d59" x="333" y="0" width="111" height="20"/>
+				<reportElement x="333" y="0" width="111" height="20" uuid="45697493-3d45-40ea-b3e9-e2d9b0359d59"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="68703c1d-fde2-40ba-81c3-03c08e6c9f11" x="444" y="0" width="100" height="20"/>
+				<reportElement x="444" y="0" width="100" height="20" uuid="68703c1d-fde2-40ba-81c3-03c08e6c9f11"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="ce8a13ff-63a3-4fea-93d5-7f08d09a39b1" x="11" y="0" width="100" height="20"/>
+				<reportElement x="11" y="0" width="100" height="20" uuid="ce8a13ff-63a3-4fea-93d5-7f08d09a39b1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[codigo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="69338879-63e9-4e2a-94c4-c34f732d711e" x="111" y="0" width="111" height="20"/>
+				<reportElement x="111" y="0" width="111" height="20" uuid="69338879-63e9-4e2a-94c4-c34f732d711e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo Equipo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="544bb7d9-b681-47ab-a7a6-258c8b77732d" x="222" y="0" width="111" height="20"/>
+				<reportElement x="222" y="0" width="111" height="20" uuid="544bb7d9-b681-47ab-a7a6-258c8b77732d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2d147da5-bae6-45be-b595-165538725f10" x="333" y="0" width="111" height="20"/>
+				<reportElement x="333" y="0" width="111" height="20" uuid="2d147da5-bae6-45be-b595-165538725f10"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantidad Stock]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="85e7644a-f792-407d-afdb-15eaa7e3da5f" x="444" y="0" width="100" height="20"/>
+				<reportElement x="444" y="0" width="100" height="20" uuid="85e7644a-f792-407d-afdb-15eaa7e3da5f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -97,42 +97,42 @@ deta.estado_alquiler='D']]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="f50921e9-639a-4833-a939-4d939d53b625" x="11" y="0" width="99" height="20"/>
+				<reportElement x="11" y="0" width="99" height="20" uuid="f50921e9-639a-4833-a939-4d939d53b625"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="16ae406e-50ce-45dd-a352-1977c9c57749" x="111" y="0" width="110" height="20"/>
+				<reportElement x="111" y="0" width="110" height="20" uuid="16ae406e-50ce-45dd-a352-1977c9c57749"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="5316258b-8108-460a-8fcc-ec053cf639fa" x="222" y="0" width="110" height="20"/>
+				<reportElement x="222" y="0" width="110" height="20" uuid="5316258b-8108-460a-8fcc-ec053cf639fa"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="59f8f909-043e-49aa-aa45-ee84675aeb41" x="333" y="0" width="110" height="20"/>
+				<reportElement x="333" y="0" width="110" height="20" uuid="59f8f909-043e-49aa-aa45-ee84675aeb41"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="6298b278-0b4c-46bf-b41c-8403da3f3bc4" x="444" y="0" width="99" height="20"/>
+				<reportElement x="444" y="0" width="99" height="20" uuid="6298b278-0b4c-46bf-b41c-8403da3f3bc4"/>
 			</rectangle>
 			<textField>
-				<reportElement uuid="fa36ebc3-c463-4255-bf0c-648e4b432f74" x="11" y="0" width="100" height="20"/>
+				<reportElement x="11" y="0" width="100" height="20" uuid="fa36ebc3-c463-4255-bf0c-648e4b432f74"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="66ff6bba-837f-4765-92fb-5fcf1034032e" x="111" y="0" width="111" height="20"/>
+				<reportElement x="111" y="0" width="111" height="20" uuid="66ff6bba-837f-4765-92fb-5fcf1034032e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{TipoEquipo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1a1b07b7-bc72-4ba2-a33a-dcd38b075118" x="222" y="0" width="111" height="20"/>
+				<reportElement x="222" y="0" width="111" height="20" uuid="1a1b07b7-bc72-4ba2-a33a-dcd38b075118"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="afd9de66-ebd9-4e2d-bc70-74dc03ddbc7d" x="333" y="0" width="111" height="20"/>
+				<reportElement x="333" y="0" width="111" height="20" uuid="afd9de66-ebd9-4e2d-bc70-74dc03ddbc7d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cantidad_stock}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d7e9e996-9444-4e50-8bf3-eff5b9fa53a5" x="444" y="0" width="100" height="20"/>
+				<reportElement x="444" y="0" width="100" height="20" uuid="d7e9e996-9444-4e50-8bf3-eff5b9fa53a5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{precio_alquiler}]]></textFieldExpression>
 			</textField>
@@ -141,7 +141,7 @@ deta.estado_alquiler='D']]>
 	<pageFooter>
 		<band height="73">
 			<image>
-				<reportElement uuid="19d0dde7-d48f-4fe9-9817-e3140ec33572" x="0" y="2" width="555" height="71"/>
+				<reportElement x="0" y="2" width="555" height="71" uuid="19d0dde7-d48f-4fe9-9817-e3140ec33572"/>
 				<imageExpression><![CDATA["C:\\img\\pie.png"]]></imageExpression>
 			</image>
 		</band>
