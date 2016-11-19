@@ -7,6 +7,7 @@ package com.nanosolution.aecontrol.bean;
 
 import com.nanosolution.aecontrol.dao.KardexDaoImpl;
 import com.nanosolution.aecontrol.model.Kardex;
+import com.nanosolution.aecontrol.model.Obra;
 import com.nanosolution.aecontrol.util.GenerarReportes;
 import com.nanosolution.aecontrol.util.Parametros;
 import com.nanosolution.aecontrol.util.ParametrosWeb;
@@ -40,8 +41,10 @@ public class ReportesBean {
         listObras = new ArrayList<SelectItem>();
         KardexDaoImpl obraDao = new KardexDaoImpl();
 
-        for (Kardex lista : obraDao.getKardexObraAlquilados()) {
-            listObras.add(new SelectItem(lista.getObra().getIdObra(), lista.getObra().getNombre()));
+        obraDao.getKardexObraAlquilados();
+        
+        for (Obra lista : obraDao.getKardexObraAlquilados()) {
+            listObras.add(new SelectItem(lista.getIdObra(), lista.getNombre()));
         }
 
     }

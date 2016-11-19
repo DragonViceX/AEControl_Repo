@@ -5,7 +5,6 @@
  */
 package com.nanosolution.aecontrol.bean;
 
-
 import com.nanosolution.aecontrol.dao.DetalleEquipoDaoImpl;
 import com.nanosolution.aecontrol.dao.EquipoDaoImpl;
 import com.nanosolution.aecontrol.dao.TipoEquipoDaoImpl;
@@ -37,6 +36,7 @@ public class EquipoBean {
     private List<Equipo> filteredEquipos;
     private List<SelectItem> tipoequipo;
     private int idtipo_equipo;
+    DetalleEquipoDaoImpl detimp;
 
     /**
      * Creates a new instance of PersonaBean
@@ -50,6 +50,7 @@ public class EquipoBean {
     @PostConstruct
     public void init() {
         EquipoDaoImpl equipodao = new EquipoDaoImpl();
+        detimp = new DetalleEquipoDaoImpl();
         LEquipo = equipodao.findAll();
         tipoequipo = new ArrayList();
 
@@ -107,26 +108,28 @@ public class EquipoBean {
     public void registrar() {
         EquipoDaoImpl equipodao = new EquipoDaoImpl();
         if (validar(equipo.getNombre())) {
-                FacesMessage msg = new FacesMessage("El equipo ya existe");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("El equipo ya existe");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
             TipoEquipoDaoImpl tipoequipodao = new TipoEquipoDaoImpl();
-            DetalleEquipo det=new DetalleEquipo();
-            DetalleEquipoDaoImpl detimp=new DetalleEquipoDaoImpl();
+            DetalleEquipo det = new DetalleEquipo();
+
             equipo.setTipoequipo(tipoequipodao.getTipoEquipoId(idtipo_equipo));
             equipo.setCantidadStock(equipo.getCantidad());
-            
-            det.setEstadoAlquiler('A');
+            equipo.setCantidad(0);
+            det.setEstadoAlquiler('D');
             det.setEquipo(equipo);
-            
+
             equipodao.create(equipo);
+            det.setNumSerie(""+equipo.getIdEquipo()+1);
+            detimp = new DetalleEquipoDaoImpl();
             detimp.create(det);
-            
+
             equipo = new Equipo();
             init();
             FacesMessage msg = new FacesMessage("Equipo creado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        } 
+        }
     }
 
     /**
@@ -154,9 +157,9 @@ public class EquipoBean {
     public void actualizar() {
 
         EquipoDaoImpl equipodao = new EquipoDaoImpl();
-        TipoEquipoDaoImpl tipoequipodao = new TipoEquipoDaoImpl();
-        equipo.setTipoequipo(tipoequipodao.getTipoEquipoId(idtipo_equipo));
-        equipo.setCantidadStock(equipo.getCantidad());
+        //TipoEquipoDaoImpl tipoequipodao = new TipoEquipoDaoImpl();
+        //equipo.setTipoequipo(tipoequipodao.getTipoEquipoId(idtipo_equipo));
+        //equipo.setCantidadStock(equipo.getCantidad());
         equipodao.update(equipo);
         FacesMessage msg = new FacesMessage("Equipo actualizado");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -170,11 +173,10 @@ public class EquipoBean {
      */
     public void eliminar(Equipo e) {
         EquipoDaoImpl equipodao = new EquipoDaoImpl();
-            equipodao.delete(e);
-            init();
-            FacesMessage msg = new FacesMessage("Equipo eliminado");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-       
+        equipodao.delete(e);
+        init();
+        FacesMessage msg = new FacesMessage("Equipo eliminado");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
 
     }
 

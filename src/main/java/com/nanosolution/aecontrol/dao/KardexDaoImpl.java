@@ -39,24 +39,42 @@ public class KardexDaoImpl extends GenericDaoImpl<Kardex, Integer> implements Ka
         return c;
     }
 
-    public List<Kardex> getKardexObraAlquilados() {
+    public List<Obra> getKardexObraAlquilados() {
 
-        List<Kardex> list;
-        Kardex c;
+        List<Obra> list;
 
         try {
             session = HibernateUtil.getSession();
             tx = session.beginTransaction();
-            list = (session.createQuery("from Kardex u where u.tipoMov='S'").list());
-
-            System.out.println("-->> " + list.toString());
-            tx.commit();
+            list = (session.createQuery("select distinct u.obra from Kardex u where u.tipoMov='S'").list());
+             tx.commit();
         } catch (HibernateException e) {
             tx.rollback();
             throw e;
         }
-
+        
         return list;
     }
+    
+    
+        public List<Kardex> getKardexAlquilados() {
+
+        List<Kardex> list;
+
+        try {
+            session = HibernateUtil.getSession();
+            tx = session.beginTransaction();
+            list = (session.createQuery("from Kardex k where k.tipoMov='S'").list());
+             tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
+            throw e;
+        }
+        
+        return list;
+    }
+    
+    
+    
 
 }

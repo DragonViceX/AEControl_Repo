@@ -11,14 +11,14 @@
         <ui:composition template="./../layouts/global.xhtml">           
 
             <ui:define name="content">
-                <h1>Salidas de Equipos</h1>
+                <h1>Salidas de Equipo</h1>
 
                 <h:form id="formTable">
 
 
                     <p:dataTable id="dtEquipo" editable="true" var="detalleVar" widgetVar="equipoTabla" value="#{kardexBean.listDetalle}"  
-                                 emptyMessage="No hay salidas encontradas" 
-                                 rows="10"
+                                 emptyMessage="No hay salidas encontradas de equipos" 
+                                 rows="5"
                                  paginator="true"
                                  selection="#{kardexBean.detalleEqui}" selectionMode="single" rowKey="#{detalleVar.idDetalleEquipo}" 
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -39,6 +39,9 @@
                             <h:outputText value="#{detalleVar.equipo.nombre}" />
                         </p:column>
 
+                        <p:column  filterStyle="display:none;" filterBy="#{detalleVar.equipo.cantidadStock}" headerText="Cantidad">
+                            <h:outputText value="#{detalleVar.equipo.cantidadStock}" />
+                        </p:column>
                         <p:column filterBy="#{detalleVar.numSerie}"  filterStyle="display:none;" headerText="Numero Serie">
                             <h:outputText value="#{detalleVar.numSerie}" />
                         </p:column>
@@ -114,11 +117,11 @@
                     </p:dataTable>
 
 
-                    <p:outputLabel for="idObservacion" value="Observacion:" style="top:950px;left:200px;position: absolute;" />
-                    <p:inputTextarea id="idObservacion" value="#{kardexBean.nuevo.observacion}" style="top:950px;left:310px;width: 320px;position: absolute;"   />
+                    <p:outputLabel for="idObservacion" value="Observacion:" style="top:1050px;left:200px;position: absolute;" />
+                    <p:inputTextarea id="idObservacion" value="#{kardexBean.nuevo.observacion}" style="top:1020px;left:310px;width: 320px;position: absolute;"   />
 
                     <p:growl id="growl1" showDetail="true" life="5555"/> 
-                    <p:commandButton id="btnEnviar" value="Registrar" actionListener="#{kardexBean.registrar}" style="top:950px;left:680px;position: absolute;" update="formTable,growl1" />
+                    <p:commandButton id="btnEnviar" value="Registrar" actionListener="#{kardexBean.registrar}" style="top:1025px;left:680px;position: absolute;" update="formTable,growl1" />
 
                 </h:form>
 

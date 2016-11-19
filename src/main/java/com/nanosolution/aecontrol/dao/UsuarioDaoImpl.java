@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Repository;
 
 
 /**
@@ -24,9 +24,9 @@ import org.springframework.stereotype.Repository;
  * @author Jessica
  */
 
-@Repository
+//@Repository
 public class UsuarioDaoImpl extends GenericDaoImpl<Usuario,Integer> implements UsuarioDao {
-    @Autowired
+  //  @Autowired
 	private SessionFactory sessionFactory;
     
      @Override

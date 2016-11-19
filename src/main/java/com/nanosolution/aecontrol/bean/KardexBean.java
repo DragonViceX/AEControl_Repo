@@ -42,6 +42,7 @@ public class KardexBean {
     private Vehiculo selectVehiculo;
     private DetalleEquipo detalleEqui;
     private List<DetalleEquipo> listDetalle;
+    private List<DetalleEquipo> listDetalleEntrada;
     private List<Obra> listObra;
     private List<Vehiculo> listVehiculo;
     KardexDaoImpl kardexdao;
@@ -61,18 +62,15 @@ public class KardexBean {
 
         listObra = obraDao.getObrasActivas();
         listDetalle = detalleDao.getDetalleNoAlquilados();
+        listDetalleEntrada = detalleDao.getDetalleAlquilados();
         listVehiculo = vehiculoDao.findAll();
 
     }
 
-    /**
-     * Permite registrar un cliente en la base de datos
-     */
     public void registrar() {
 
         EquipoDaoImpl equipodao = new EquipoDaoImpl();
         selectEquipo = detalleEqui.getEquipo();
-        System.out.println("Cntidad -->> " + selectEquipo.getCantidadStock());
         if (selectEquipo.getCantidadStock() == 0) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "No hay equipos para alquilar", "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -103,6 +101,10 @@ public class KardexBean {
         }
     }
 
+    public void actualizarEntradas() {
+        
+    }
+    
     /**
      * Permite actualizar un cliente
      */
@@ -226,6 +228,14 @@ public class KardexBean {
 
     public void setListVehiculo(List<Vehiculo> listVehiculo) {
         this.listVehiculo = listVehiculo;
+    }
+
+    public List<DetalleEquipo> getListDetalleEntrada() {
+        return listDetalleEntrada;
+    }
+
+    public void setListDetalleEntrada(List<DetalleEquipo> listDetalleEntrada) {
+        this.listDetalleEntrada = listDetalleEntrada;
     }
 
 }

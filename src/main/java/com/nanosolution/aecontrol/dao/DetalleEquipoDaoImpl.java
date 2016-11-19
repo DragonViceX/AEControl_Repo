@@ -35,4 +35,22 @@ public class DetalleEquipoDaoImpl extends GenericDaoImpl<DetalleEquipo, Integer>
         return list;
     }
 
+    public List<DetalleEquipo> getDetalleAlquilados() {
+
+        List<DetalleEquipo> list;
+        DetalleEquipo c;
+
+        try {
+            session = HibernateUtil.getSession();
+            tx = session.beginTransaction();
+            list = (session.createQuery("from DetalleEquipo d where d.estadoAlquiler='A'").list());
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
+            throw e;
+        }
+        
+        return list;
+    }
+
 }
